@@ -8,5 +8,5 @@ export interface ApiDataModel{
     next: string|null;
     prev: string|null;
   };
-  results: CharacterModel[] | LocationModel[] | EpisodeModel[];
+  results: CharacterModel[] | LocationModel[] ;
 }

@@ -1,0 +1,36 @@
+div.card {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.card:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+div.card img {
+    max-width: 100%;
+    height: 170px;
+}
+
+div.card div.card-body>p.card-text {
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.alive {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #00ce00;
+}
+
+.dead {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #FF0000;
+}
+
+.unknown::before {
+    font-weight: bold;
+    content: "?";
+}

@@ -1,1 +1,7 @@
-<p>characters-list works!</p>
+<main class="container-fluid px-4 my-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 mx-0 px-0">
+        <div *ngFor="let character of characters" class="col">
+            <app-card [characterData]="character" (click)="onSelectCard(character.id)"></app-card>
+        </div>
+    </div>
+</main>

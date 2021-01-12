@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: HOME, component: HomeComponent},
   {path: CHARACTERS, component: CharactersListComponent},
   {path: FAVORITES, component: FavCharactersListComponent},
-  {path: `${CHARACTERS}/${CHARACTER}/:id`, component: CharacterDetailComponent},
+  {path: `${CHARACTER}/:id`, component: CharacterDetailComponent},
   {path: OTHER, pathMatch: 'full', redirectTo: HOME}
 ];
 

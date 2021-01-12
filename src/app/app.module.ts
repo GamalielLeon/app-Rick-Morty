@@ -10,6 +10,7 @@ import { FavCharactersListComponent } from './pages/fav-characters-list/fav-char
 import { CharactersListComponent } from './pages/characters-list/characters-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DetailEpisodeComponent } from './components/detail-episode/detail-episode.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DetailEpisodeComponent } from './components/detail-episode/detail-episo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

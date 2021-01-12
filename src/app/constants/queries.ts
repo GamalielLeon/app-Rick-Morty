@@ -4,3 +4,6 @@ export const NAME: string = 'name';
 export const GENDER: string = 'gender';
 export const STATUS: string = 'status';
 export const SPECIES: string = 'species';
+export const EPISODE_API: string = 'episode';
+export const LOCATION_API: string = 'location';
+export const CHARACTER_API: string = 'character';

@@ -1,1 +1,35 @@
-<p>card works!</p>
+<div class="d-none d-sm-block card text-white my-2">
+    <div class="row mx-0 my-0">
+        <div class="col-4 col-md-5 align-self-center px-0">
+            <img [src]="characterData.image" alt="...">
+        </div>
+        <div class="col-8 col-md-7 align-self-center">
+            <div class="card-body px-0 py-0">
+                <p class="card-title fw-bold my-0">{{characterData.name}}</p>
+                <div class="my-0 d-inline-block" [ngClass]="characterData.status.toLowerCase()"></div>
+                <p class="card-text d-inline ms-2">{{characterData.status}} - {{characterData.species}}</p>
+                <p class="card-text mt-2">
+                    <span class="text-white-50">Last known location:</span><br>{{characterData.location.name}}
+                </p>
+                <p class="card-text">
+                    <span class="text-white-50">First seen in:</span><br>{{characterData.origin.name}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-block d-sm-none card text-white my-2">
+    <img [src]="characterData.image" class="card-img-top" alt="...">
+    <div class="card-body text-center py-2">
+        <p class="card-title fw-bold my-0">{{characterData.name}}</p>
+        <div class="my-0 d-inline-block" [ngClass]="characterData.status.toLowerCase()"></div>
+        <p class="card-text d-inline ms-2">{{characterData.status}} - {{characterData.species}}</p>
+        <p class="card-text mt-2">
+            <span class="text-white-50">Last known location:</span><br>{{characterData.location.name}}
+        </p>
+        <p class="card-text">
+            <span class="text-white-50">First seen in:</span><br>{{characterData.origin.name}}
+        </p>
+    </div>
+</div>
