@@ -4,8 +4,9 @@ import { Subscription } from 'rxjs';
 import { CHARACTER } from 'src/app/constants/paths';
 import { CHARACTER_API, PAGE } from 'src/app/constants/queries';
 import { CharacterModel } from 'src/app/models/character.model';
-import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 import { CURRENT_PAGE, PAGE_SIZE } from '../../constants/localStorage';
+import { DEFAULT_PAGE, WAIT_LOAD,  DEFAULT_PAGE_SIZE } from 'src/app/constants/values';
+import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 
 @Component({
   selector: 'app-characters-list',
@@ -24,8 +25,8 @@ export class CharactersListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
   /********** METHODS **********/
   private onCallAPIEnd(totalRecords: number): void {
-    const page: number = +(localStorage.getItem(CURRENT_PAGE) || '1');
-    const pageSize: number = +(localStorage.getItem(PAGE_SIZE) || '12');
+    const page: number = +(localStorage.getItem(CURRENT_PAGE) || DEFAULT_PAGE);
+    const pageSize: number = +(localStorage.getItem(PAGE_SIZE) || DEFAULT_PAGE_SIZE);
     this.setCharactersPerPage(page, pageSize);
     this.setTotalRecords(totalRecords);
     this.setLoading(false);
@@ -34,14 +35,14 @@ export class CharactersListComponent implements OnInit, OnDestroy {
     for (let p = 1; p <= pages; p++) {
       const subscription = this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=${p}`]).
       subscribe( data => {
-        this.characters = [...this.characters, ...data.results as CharacterModel[]];
+        this.characters = [...this.characters, ...data.results];
         subscription.unsubscribe();
         if (p === data.info.pages) { this.onCallAPIEnd(data.info.count); }
       });
     }
   }
   private getCharactersFromAPI(): void {
-    this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=1`]).
+    this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=${DEFAULT_PAGE_SIZE}`]).
       subscribe(data => this.getCharactersFromAllPages(data.info.pages),
                 error => this.setLoading(false));
   }
@@ -52,7 +53,7 @@ export class CharactersListComponent implements OnInit, OnDestroy {
   getTotalRecords = (): number => this.totalRecords;
   getCharactersPerPage = (): CharacterModel[] => this.charactersPerPage;
   /********** SETTERS **********/
-  setLoading(loading: boolean): void { this.loading = loading; }
+  setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }
   setTotalRecords(totalRecords: number): void { this.totalRecords = totalRecords; }
   setCharactersPerPage(page: number, pageSize: number): void {
     this.charactersPerPage = this.characters.slice(pageSize * (page - 1), page * pageSize );

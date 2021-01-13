@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DetailEpisodeComponent } from './components/detail-episode/detail-episode.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './components/loader/loader.component';
+import { PopUpEpisodeComponent } from './components/pop-up-episode/pop-up-episode.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     CharactersListComponent,
     HomeComponent,
     DetailEpisodeComponent,
-    LoaderComponent
+    LoaderComponent,
+    PopUpEpisodeComponent
   ],
   imports: [
     BrowserModule,

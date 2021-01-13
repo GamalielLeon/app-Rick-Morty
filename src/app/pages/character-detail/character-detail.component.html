@@ -1,1 +1,49 @@
-<p>character-detail works!</p>
+<section class="container-fluid my-3">
+    <app-loader *ngIf="getLoading()"></app-loader>
+
+    <div *ngIf="!getLoading()" class="col col-12 col-sm-8 col-md-5 py-2 px-2 mx-auto form-component">
+        <h2 class="text-center fw-bold mt-1 mb-2 mx-3">{{getCharacterData().name}}</h2>
+        <img [src]="getCharacterData().image" class="img-fluid rounded px-4 mx-auto d-block" alt="...">
+        <div class="row justify-content-center mx-0">
+            <div class="input-group mt-3">
+                <span class="input-group-text text-secondary"><span class="fas fa-transgender-alt fa-lg"></span>&nbsp;Gender</span>
+                <input type="text" class="form-control" disabled readonly [value]="getCharacterData().gender">
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text text-secondary"><span class="fas fa-alien-monster fa-lg"></span>&nbsp;Specie</span>
+                <input type="text" class="form-control" disabled readonly [value]="getCharacterData().species">
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text"><span [ngClass]="statusIcon[getCharacterData().status.toLowerCase()]"></span>&nbsp;Status</span>
+                <input type="text" class="form-control" disabled readonly [value]="getCharacterData().status">
+            </div>
+            <div class="input-group mt-2">
+                <span class="input-group-text text-secondary"><span class="far fa-calendar-alt fa-lg"></span>&nbsp;Created</span>
+                <input type="text" class="form-control" disabled readonly [value]="getCharacterData().created | date: 'dd-MM-yyyy'">
+            </div>
+            <div class="input-group mt-2">
+                <span class="col-12 justify-content-center input-group-text text-secondary rounded-pill my-1"><span class="fas fa-map-marker-alt fa-lg"></span>&nbsp;Last known location</span>
+                <textarea class="form-control rounded-pill" disabled readonly [value]="getCharacterData().location.name"></textarea>
+            </div>
+            <div class="input-group mt-2">
+                <span class="col-12 justify-content-center input-group-text text-secondary rounded-pill my-1"><span class="fas fa-location fa-lg"></span>&nbsp;First seen in</span>
+                <textarea class="form-control rounded-pill mb-3" disabled readonly [value]="getCharacterData().origin.name"></textarea>
+            </div>
+
+            <div class="col-11 btn-info rounded mb-2 px-0 accordion" id="episodesList">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button id="episodesBtn" class="accordion-button collapsed text-dark fw-bold border-0" type="button" data-bs-toggle="collapse" data-bs-target="#listCollapsed" aria-expanded="true" aria-controls="listCollapsed">
+                            Lista de episodios
+                    </button>
+                    </div>
+                    <div id="listCollapsed" class="accordion-collapse collapse" aria-labelledby="episodesBtn" data-bs-parent="#episodesList">
+                        <div class="list-group">
+                            <button *ngFor="let episode of getCharacterData().episode" type="button" class="list-group-item list-group-item-action list-group-item-dark" (click)="clickEpisode(episode)">{{episode}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

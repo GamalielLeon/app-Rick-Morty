@@ -10,8 +10,6 @@ export class CardComponent implements OnInit {
   @Input() characterData: CharacterModel | any;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

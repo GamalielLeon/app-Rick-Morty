@@ -1,0 +1,28 @@
+section>div.form-component {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+section>div.form-component:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+section>div.form-component>h2 {
+    color: #FFFFFF;
+    letter-spacing: 0.2vw;
+    font-family: 'Lucida Sans Unicode', Helvetica;
+    font-size: calc(1.8rem + 0.5vw);
+}
+
+section>div.form-component .form-control,
+span.input-group-text,
+div.accordion button#episodesBtn {
+    font-family: Tahoma, Verdana;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+section>div.form-component form input.form-control:focus {
+    background-color: #DDDDDD;
+}
