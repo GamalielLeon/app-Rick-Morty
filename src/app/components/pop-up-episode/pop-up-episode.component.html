@@ -1,1 +1,19 @@
-<p>pop-up-episode works!</p>
+<div class="modal fade" id="popUpWindow" tabindex="-1" aria-labelledby="popUpWindowLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header fs-5">
+                <span [class]="iconClass"></span> &nbsp; Detalles del episodio
+                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
+            </div>
+            <div class="modal-body mx-auto text-center">
+                <p class="modal-title" id="popUpWindowLabel">No. de episodio: <span>&nbsp;{{data.id}}</span></p>
+                <p class="modal-title" id="popUpWindowLabel">Título: <span>&nbsp;{{data.name}}</span></p>
+                <p class="modal-title" id="popUpWindowLabel">Fecha de lanzamiento: <span>&nbsp;{{data.air_date | date: 'MMMM dd, yyyy'}}</span></p>
+                <p class="modal-title" id="popUpWindowLabel">Código de episodio: <span>&nbsp;{{data.episode}}</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="accept()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

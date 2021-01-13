@@ -27,17 +27,19 @@ export class CharactersListComponent implements OnInit, OnDestroy {
   private onCallAPIEnd(totalRecords: number): void {
     const page: number = +(localStorage.getItem(CURRENT_PAGE) || DEFAULT_PAGE);
     const pageSize: number = +(localStorage.getItem(PAGE_SIZE) || DEFAULT_PAGE_SIZE);
+    this.characters.sort( (a, b) => a.id - b.id );
     this.setCharactersPerPage(page, pageSize);
     this.setTotalRecords(totalRecords);
     this.setLoading(false);
   }
   private getCharactersFromAllPages(pages: number): void {
+    let cont: number = 0;
     for (let p = 1; p <= pages; p++) {
       const subscription = this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=${p}`]).
       subscribe( data => {
         this.characters = [...this.characters, ...data.results];
+        if (++cont === data.info.pages) { this.onCallAPIEnd(data.info.count); }
         subscription.unsubscribe();
-        if (p === data.info.pages) { this.onCallAPIEnd(data.info.count); }
       });
     }
   }

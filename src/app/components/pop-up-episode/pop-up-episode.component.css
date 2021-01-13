@@ -1,0 +1,9 @@
+div#popUpWindow div.modal-content {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
+}
+
+div#popUpWindow p>span {
+    font-style: italic;
+    font-weight: bold;
+}

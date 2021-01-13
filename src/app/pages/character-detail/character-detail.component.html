@@ -2,6 +2,9 @@
     <app-loader *ngIf="getLoading()"></app-loader>
 
     <div *ngIf="!getLoading()" class="col col-12 col-sm-8 col-md-5 py-2 px-2 mx-auto form-component">
+        <div class="col text-end">
+            <button type="button" id="addFavoriteBtn" class="btn btn-primary fw-bold fs-5" [attr.disabled]="isFavorite() ? true : undefined" (click)="addFavorite()"><span id="addFavoriteIcon" class="fa-star fa-lg" [ngClass]="isFavorite() ? 'fas text-warning' : 'far'"></span></button>
+        </div>
         <h2 class="text-center fw-bold mt-1 mb-2 mx-3">{{getCharacterData().name}}</h2>
         <img [src]="getCharacterData().image" class="img-fluid rounded px-4 mx-auto d-block" alt="...">
         <div class="row justify-content-center mx-0">
@@ -14,7 +17,7 @@
                 <input type="text" class="form-control" disabled readonly [value]="getCharacterData().species">
             </div>
             <div class="input-group mt-2">
-                <span class="input-group-text"><span [ngClass]="statusIcon[getCharacterData().status.toLowerCase()]"></span>&nbsp;Status</span>
+                <span class="input-group-text text-secondary"><span [ngClass]="statusIcon[getCharacterData().status.toLowerCase()]"></span>&nbsp;Status</span>
                 <input type="text" class="form-control" disabled readonly [value]="getCharacterData().status">
             </div>
             <div class="input-group mt-2">
@@ -39,11 +42,19 @@
                     </div>
                     <div id="listCollapsed" class="accordion-collapse collapse" aria-labelledby="episodesBtn" data-bs-parent="#episodesList">
                         <div class="list-group">
-                            <button *ngFor="let episode of getCharacterData().episode" type="button" class="list-group-item list-group-item-action list-group-item-dark" (click)="clickEpisode(episode)">{{episode}}</button>
+                            <button *ngFor="let episode of getCharacterData().episode" type="button" class="list-group-item list-group-item-action list-group-item-dark" (click)="clickEpisode(episode)" data-bs-toggle="modal" data-bs-target="#popUpWindow">{{episode}}</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <app-pop-up-episode [data]="getEpisodeSelected()"></app-pop-up-episode>
+
+    <div *ngIf="!getLoading()" class="row mx-0 my-2 text-end">
+        <div class="col">
+            <button type="button" class="btn btn-danger fw-bold fs-5" (click)="goBack()"><span class="fas fa-hand-point-left fa-lg"></span> &nbsp;REGRESAR</button>
         </div>
     </div>
 </section>
