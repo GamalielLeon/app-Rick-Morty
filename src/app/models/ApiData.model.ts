@@ -1,6 +1,3 @@
-import { CharacterModel } from './character.model';
-import { LocationModel } from './location.model';
-import { EpisodeModel } from './episode.model';
 export interface ApiDataModel{
   info: {
     count: number;
@@ -8,5 +5,5 @@ export interface ApiDataModel{
     next: string|null;
     prev: string|null;
   };
-  results: CharacterModel[] | LocationModel[] ;
+  results: any[];
 }

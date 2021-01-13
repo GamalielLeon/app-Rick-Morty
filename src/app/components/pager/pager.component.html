@@ -1,1 +1,42 @@
-<p>pager works!</p>
+<footer class="container-fluid">
+    <div class="col mt-4 mb-2 px-3 text-center">
+        <div class="dropend">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Elementos a mostrar</button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <li *ngFor="let pageSize of [4,6,8,10,12,15]" class="dropdown-item" [class.active]="pageSize === pagesData.pageSize" (click)="changePageSize(pageSize)">{{pageSize}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col d-flex justify-content-around" id="pager">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center my-1">
+                <li class="page-item" [class.disabled]="pagesData.pageNumber === 1">
+                    <a class="page-link rounded-3" [class.text-muted]="pagesData.pageNumber === 1" (click)="firstPage()" [routerLink]="routePages" [tabindex]="pagesData.pageNumber === 1 ? -1 : 0" [attr.aria-disabled]="pagesData.pageNumber === 1">
+                        <span class="fas fa-chevron-double-left"></span>
+                    </a>
+                </li>
+                <li class="page-item mx-2" [class.disabled]="pagesData.pageNumber === 1">
+                    <a class="page-link rounded-3" [class.text-muted]="pagesData.pageNumber === 1" (click)="previousPage()" [routerLink]="routePages" [tabindex]="pagesData.pageNumber === 1 ? -1 : 0" [attr.aria-disabled]="pagesData.pageNumber === 1">
+                        <span class="fas fa-chevron-left"></span>
+                    </a>
+                </li>
+                <li *ngFor="let page of getPages()" class="page-item me-2" [class.active]="page === pagesData.pageNumber">
+                    <a class="page-link rounded-3" [routerLink]="routePages" (click)=changePage(page)>{{page}}</a>
+                </li>
+                <li class="page-item me-2" [class.disabled]="pagesData.pageNumber === pagesData.totalPages">
+                    <a class="page-link rounded-3" [class.text-muted]="pagesData.pageNumber === pagesData.totalPages" (click)="nextPage()" [routerLink]="routePages" [tabindex]="pagesData.pageNumber === pagesData.totalPages ? -1 : 0" [attr.aria-disabled]="pagesData.pageNumber === pagesData.totalPages">
+                        <span class="fas fa-chevron-right"></span>
+                    </a>
+                </li>
+                <li class="page-item" [class.disabled]="pagesData.pageNumber === pagesData.totalPages">
+                    <a class="page-link rounded-3" [class.text-muted]="pagesData.pageNumber === pagesData.totalPages" (click)="lastPage()" [routerLink]="routePages" [tabindex]="pagesData.pageNumber === pagesData.totalPages ? -1 : 0" [attr.aria-disabled]="pagesData.pageNumber === pagesData.totalPages">
+                        <span class="fas fa-chevron-double-right"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col text-center">
+        <small>{{generateTextPages()}}</small>
+    </div>
+</footer>

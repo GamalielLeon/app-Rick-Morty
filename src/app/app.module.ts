@@ -11,6 +11,7 @@ import { CharactersListComponent } from './pages/characters-list/characters-list
 import { HomeComponent } from './pages/home/home.component';
 import { DetailEpisodeComponent } from './components/detail-episode/detail-episode.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     FavCharactersListComponent,
     CharactersListComponent,
     HomeComponent,
-    DetailEpisodeComponent
+    DetailEpisodeComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
