@@ -1,3 +1,24 @@
 body {
+    background: url('assets/images/rick-morty-bg.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
     background-color: #bdbdbd;
+    transition: background 0.5s linear;
+}
+
+.clarity-bg-dark-6 {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.clarity-bg-dark-6:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.clarity-bg-dark-4 {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.clarity-bg-dark-4:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }

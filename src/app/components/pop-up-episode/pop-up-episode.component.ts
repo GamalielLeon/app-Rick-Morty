@@ -14,14 +14,15 @@ export class PopUpEpisodeComponent implements OnInit, OnDestroy {
 
   constructor() { }
   ngOnInit(): void { if (this.staticModal) { this.setModalType(); } }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { setTimeout(() => this.deleteModals(), 400); }
+  /********** METHODS **********/
+  private deleteModals(): void {
+    const modalsActive = document.getElementsByClassName('modal-backdrop');
+    if (modalsActive.length) { document.body.removeChild(modalsActive[0]); }
+    document.body.removeAttribute('data-bs-padding-right');
     document.body.removeAttribute('class');
     document.body.removeAttribute('style');
-    document.body.removeAttribute('data-bs-padding-right');
-    const modalsActive = document.getElementsByClassName('modal-backdrop');
-    if (modalsActive.length > 0) { document.body.removeChild(modalsActive[0]); }
   }
-  /********** METHODS **********/
   private setModalType(): void {
     const modalTemp: HTMLElement = document.getElementById('popUpWindow') as HTMLElement;
     modalTemp.setAttribute('data-bs-backdrop', 'static');

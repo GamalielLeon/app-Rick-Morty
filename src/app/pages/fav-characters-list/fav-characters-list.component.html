@@ -1,6 +1,16 @@
 <section class="container-fluid" id="favoritesTable">
-    <div *ngIf="!getLoading()" class="my-4" id="divTable">
-        <table id="usersListCurrentPage" class="table table-hover text-center table-dark table-responsive">
+    <app-loader *ngIf="getLoading()"></app-loader>
+
+    <div *ngIf="!getLoading()" class="row mx-0 mt-3">
+        <div class="col px-0 mx-3">
+            <button type="button" class="btn btn-primary fw-bold fs-5" (click)="goBack()">
+                <span class="fas fa-hand-point-left fa-lg"></span> &nbsp;REGRESAR
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="!getLoading()" class="row mx-3 my-3" id="divTable">
+        <table id="usersListCurrentPage" class="table table-hover text-center table-dark table-responsive my-0">
             <thead>
                 <tr class="align-middle">
                     <th scope="col">Image</th>
@@ -30,7 +40,7 @@
                 </tr>
             </tbody>
         </table>
-
-        <app-pop-up-episode [displayInfo]="false" [staticModal]="true" (acceptOrCancel)="deleteFavorite($event)"></app-pop-up-episode>
     </div>
+
+    <app-pop-up-episode [displayInfo]="false" [staticModal]="true" (acceptOrCancel)="deleteFavorite($event)"></app-pop-up-episode>
 </section>

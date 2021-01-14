@@ -1,0 +1,21 @@
+section#userHome>p {
+    background-color: rgba(250, 210, 210, 0.5);
+    color: #000070;
+    font-weight: bold;
+}
+
+section#userHome>p:hover {
+    background-color: rgba(250, 210, 210, 0.7);
+    color: #000070;
+}
+
+section#userHome>div.alert {
+    background-color: rgba(137, 255, 249, 0.5);
+    color: #000000;
+    font-weight: bold;
+}
+
+section#userHome>div.alert:hover {
+    background-color: rgba(137, 255, 249, 0.7);
+    color: #000000;
+}

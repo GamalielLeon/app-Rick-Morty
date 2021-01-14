@@ -5,6 +5,7 @@ import { CharacterModel } from 'src/app/models/character.model';
 import { FAV_CHARACTERS } from '../../constants/localStorage';
 import { CHARACTER_API } from '../../constants/queries';
 import { WAIT_LOAD } from 'src/app/constants/values';
+import { CHARACTERS } from 'src/app/constants/paths';
 
 @Component({
   selector: 'app-fav-characters-list',
@@ -68,9 +69,10 @@ export class FavCharactersListComponent implements OnInit {
       const favoritesIds: string[] = (localStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
       favoritesIds.splice(favoritesIds.indexOf(this.getFavoriteIdToDelete()), 1);
       localStorage.setItem(FAV_CHARACTERS, favoritesIds.join(','));
-      this.getCharactersFromAPI();
+      favoritesIds.length ? this.getCharactersFromAPI() : this.router.navigateByUrl(CHARACTERS);
     }
   }
+  goBack(): void { this.router.navigateByUrl(CHARACTERS); }
   /********** GETTERS **********/
   getLoading = (): boolean => this.loading;
   getFavoriteCharacters = (): CharacterModel[] => this.favoriteCharacters;
