@@ -5,11 +5,15 @@
                 <span [class]="iconClass"></span> &nbsp; Detalles del episodio
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
             </div>
-            <div class="modal-body mx-auto text-center">
-                <p class="modal-title" id="popUpWindowLabel">No. de episodio: <span>&nbsp;{{data.id}}</span></p>
-                <p class="modal-title" id="popUpWindowLabel">Título: <span>&nbsp;{{data.name}}</span></p>
-                <p class="modal-title" id="popUpWindowLabel">Fecha de lanzamiento: <span>&nbsp;{{data.air_date | date: 'MMMM dd, yyyy'}}</span></p>
-                <p class="modal-title" id="popUpWindowLabel">Código de episodio: <span>&nbsp;{{data.episode}}</span></p>
+            <div *ngIf="displayInfo" class="modal-body mx-auto text-center">
+                <p class="modal-title">No. de episodio: <span>&nbsp;{{data.id}}</span></p>
+                <p class="modal-title">Título: <span>&nbsp;{{data.name}}</span></p>
+                <p class="modal-title">Fecha de lanzamiento: <span>&nbsp;{{data.air_date | date: 'MMMM dd, yyyy'}}</span></p>
+                <p class="modal-title">Código de episodio: <span>&nbsp;{{data.episode}}</span></p>
+            </div>
+            <div *ngIf="!displayInfo" class="modal-body mx-auto text-center">
+                <p class="far fa-exclamation-triangle fa-5x text-warning"></p>
+                <p class="modal-title fs-5">¿Realmente desea eliminar el favorito?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="accept()">OK</button>

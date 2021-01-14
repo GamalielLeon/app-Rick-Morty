@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
-import { Router, ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
-import { CHARACTER_API, EPISODE_API } from '../../constants/queries';
-import { CharacterModel } from '../../models/character.model';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WAIT_LOAD } from 'src/app/constants/values';
 import { CHARACTERS } from 'src/app/constants/paths';
+import { CharacterModel } from '../../models/character.model';
 import { FAV_CHARACTERS } from 'src/app/constants/localStorage';
+import { CHARACTER_API, EPISODE_API } from '../../constants/queries';
 import { EpisodeModel } from 'src/app/models/episode.model';
+import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 
 @Component({
   selector: 'app-character-detail',

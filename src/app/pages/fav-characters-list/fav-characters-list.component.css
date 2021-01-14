@@ -1,0 +1,56 @@
+section#favoritesTable>div#divTable {
+    overflow: auto;
+}
+
+section#favoritesTable table {
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.4);
+}
+
+section#favoritesTable table th {
+    cursor: pointer;
+    background-color: #44ad56;
+}
+
+section#favoritesTable table th:hover {
+    background-color: rgba(68, 173, 86, 0.8);
+}
+
+section#favoritesTable table th.arrow-up::after {
+    content: '\25b4'
+}
+
+section#favoritesTable table th.arrow-down::after {
+    content: '\25be'
+}
+
+section#favoritesTable table>tbody>tr>td {
+    color: #FFFFFF;
+    vertical-align: middle;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+section#favoritesTable table>tbody>tr>td span,
+input {
+    cursor: pointer;
+}
+
+section#favoritesTable ul>li>a.page-link {
+    color: #0b66b1;
+}
+
+section#favoritesTable ul>li>a.page-link:hover {
+    color: #190183;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+section#favoritesTable ul>li>a.page-link:focus {
+    color: #190183;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+section#favoritesTable ul>li.active>a.page-link {
+    color: #FFFFFF;
+    background-color: #1c60b9;
+}

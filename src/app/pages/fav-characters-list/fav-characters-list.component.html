@@ -1,1 +1,36 @@
-<p>fav-characters-list works!</p>
+<section class="container-fluid" id="favoritesTable">
+    <div *ngIf="!getLoading()" class="my-4" id="divTable">
+        <table id="usersListCurrentPage" class="table table-hover text-center table-dark table-responsive">
+            <thead>
+                <tr class="align-middle">
+                    <th scope="col">Image</th>
+                    <th scope="col" (click)="changeArrowTableHeader(['name'], 1)">Name</th>
+                    <th scope="col" (click)="changeArrowTableHeader(['status'], 2)">Status</th>
+                    <th scope="col" (click)="changeArrowTableHeader(['location', 'name'], 3)">Location</th>
+                    <th scope="col" (click)="changeArrowTableHeader(['origin', 'name'], 4)">First&nbsp;seen&nbsp;in</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let favoriteCharacter of getFavoriteCharacters(); let i=index">
+                    <td class="col-sm-3 col-md-2 col-xl-1 p-1">
+                        <img class="img-fluid rounded" [src]="favoriteCharacter.image" alt="">
+                    </td>
+                    <td>{{favoriteCharacter.name}}</td>
+                    <td>{{favoriteCharacter.status}}</td>
+                    <td>{{favoriteCharacter.location.name}}</td>
+                    <td>{{favoriteCharacter.origin.name}}</td>
+                    <td class="active-column">
+                        <div class="form-check form-switch d-inline-block align-middle">
+                            <button type="button" class="btn btn-danger" (click)="setFavoriteIdToDelete(favoriteCharacter.id)" data-bs-toggle="modal" data-bs-target="#popUpWindow">
+                                <span class="fas fa-trash fa-lg fw-bold"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <app-pop-up-episode [displayInfo]="false" [staticModal]="true" (acceptOrCancel)="deleteFavorite($event)"></app-pop-up-episode>
+    </div>
+</section>

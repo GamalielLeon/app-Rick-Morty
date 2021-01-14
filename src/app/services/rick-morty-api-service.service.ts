@@ -6,6 +6,8 @@ import { CharacterModel } from '../models/character.model';
 import { LocationModel } from '../models/location.model';
 import { EpisodeModel } from '../models/episode.model';
 import { API_URL } from '../constants/urls';
+type APIdataArray = CharacterModel[]|LocationModel[]|EpisodeModel[];
+type APIdata = CharacterModel|LocationModel|EpisodeModel;
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,10 @@ export class RickMortyApiServiceService {
   getItemsFromAPI(query: string, filters: string[] = []): Observable<ApiDataModel> {
     return this.http.get<ApiDataModel>(`${API_URL + query}?${filters.join('&')}`);
   }
-
-  getItemFromAPI(query: string, id: number): Observable<CharacterModel|LocationModel|EpisodeModel> {
-    return this.http.get<CharacterModel|LocationModel|EpisodeModel>(`${API_URL + query}/${id}`);
+  getItemsFromAPIByIds(query: string, ids: string): Observable<APIdataArray|APIdata> {
+      return this.http.get<APIdataArray|APIdata>(`${API_URL + query}/${ids}`);
+  }
+  getItemFromAPI(query: string, id: number): Observable<APIdata> {
+    return this.http.get<APIdata>(`${API_URL + query}/${id}`);
   }
 }

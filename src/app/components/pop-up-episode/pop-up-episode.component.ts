@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 export class PopUpEpisodeComponent implements OnInit, OnDestroy {
   @Output() acceptOrCancel: EventEmitter<boolean> = new EventEmitter();
   @Input() data: any = {};
+  @Input() displayInfo: boolean = true;
   @Input() staticModal: boolean = false;
   @Input() iconClass: string = 'far fa-info-circle fa-lg text-primary';
 
