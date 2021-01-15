@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { WAIT_LOAD } from 'src/app/constants/values';
 import { CHARACTERS } from 'src/app/constants/paths';
-import { CharacterModel } from '../../models/character.model';
-import { FAV_CHARACTERS } from 'src/app/constants/localStorage';
-import { CHARACTER_API, EPISODE_API } from '../../constants/queries';
 import { EpisodeModel } from 'src/app/models/episode.model';
+import { CharacterModel } from '../../models/character.model';
+import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
+import { CHARACTER_API, EPISODE_API } from '../../constants/queries';
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-serv
   styleUrls: ['./character-detail.component.css']
 })
 export class CharacterDetailComponent implements OnInit {
-  private favorites: string[] = (localStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
+  private favorites: string[] = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
   private characterData: any|CharacterModel = {};
   private episodeSelected: any|EpisodeModel = {};
   private loading: boolean = true;
@@ -44,7 +44,7 @@ export class CharacterDetailComponent implements OnInit {
   }
   addFavorite(): void{
     this.favorites.push(this.characterData.id.toString());
-    localStorage.setItem(FAV_CHARACTERS, this.favorites.join(','));
+    sessionStorage.setItem(FAV_CHARACTERS, this.favorites.join(','));
   }
   isFavorite = (): boolean => this.favorites.includes(this.characterData.id.toString());
   goBack(): void { this.router.navigateByUrl(CHARACTERS); }

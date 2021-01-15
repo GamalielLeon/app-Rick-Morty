@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CURRENT_PAGE, PAGE_SIZE } from 'src/app/constants/localStorage';
+import { CURRENT_PAGE, PAGE_SIZE } from 'src/app/constants/sesionStorage';
 import { PagesDataModel } from '../../models/pagesData.model';
 import { CHARACTERS } from 'src/app/constants/paths';
 
@@ -17,8 +17,8 @@ export class PagerComponent implements OnInit {
 
   constructor() { }
   ngOnInit(): void {
-    const currentPage: number = +(localStorage.getItem(CURRENT_PAGE) || '1');
-    const pageSize: number = +(localStorage.getItem(PAGE_SIZE) || '12');
+    const currentPage: number = +(sessionStorage.getItem(CURRENT_PAGE) || '1');
+    const pageSize: number = +(sessionStorage.getItem(PAGE_SIZE) || '12');
     this.setPagesData(currentPage, pageSize);
   }
   /********** METHODS **********/
@@ -32,8 +32,8 @@ export class PagerComponent implements OnInit {
   }
   changePage(page: number, pageSize: number = this.pagesData.pageSize): void {
     this.setPagesData(arguments.length === 1 ? page : 1, pageSize);
-    localStorage.setItem(CURRENT_PAGE, `${this.pagesData.pageNumber}`);
-    localStorage.setItem(PAGE_SIZE, `${this.pagesData.pageSize}`);
+    sessionStorage.setItem(CURRENT_PAGE, `${this.pagesData.pageNumber}`);
+    sessionStorage.setItem(PAGE_SIZE, `${this.pagesData.pageSize}`);
     this.selectedPage.emit([this.pagesData.pageNumber, pageSize]);
   }
   firstPage(): void { this.changePage(1); }

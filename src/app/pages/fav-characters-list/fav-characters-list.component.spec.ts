@@ -1,6 +1,6 @@
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 import { FavCharactersListComponent } from './fav-characters-list.component';
-import { FAV_CHARACTERS } from 'src/app/constants/localStorage';
+import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
 import {TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CharacterModel } from '../../models/character.model';

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { CHARACTER } from 'src/app/constants/paths';
 import { CharacterModel } from 'src/app/models/character.model';
 import { CHARACTER_API, PAGE } from 'src/app/constants/queries';
-import { CURRENT_PAGE, PAGE_SIZE } from 'src/app/constants/localStorage';
+import { CURRENT_PAGE, PAGE_SIZE } from 'src/app/constants/sesionStorage';
 import { DEFAULT_PAGE, WAIT_LOAD,  DEFAULT_PAGE_SIZE } from 'src/app/constants/values';
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 
@@ -25,8 +25,8 @@ export class CharactersListComponent implements OnInit {
   /********** METHODS **********/
   private onCallAPIEnd(characters: CharacterModel[], totalRecords: number): void {
     this.characters = [...characters];
-    const pageSize: number = +(localStorage.getItem(PAGE_SIZE) || DEFAULT_PAGE_SIZE);
-    const page: number = +(localStorage.getItem(CURRENT_PAGE) || DEFAULT_PAGE);
+    const pageSize: number = +(sessionStorage.getItem(PAGE_SIZE) || DEFAULT_PAGE_SIZE);
+    const page: number = +(sessionStorage.getItem(CURRENT_PAGE) || DEFAULT_PAGE);
     this.setCharactersPerPage(page, pageSize);
     this.setTotalRecords(totalRecords);
     this.subscriptions.unsubscribe();

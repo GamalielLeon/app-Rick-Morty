@@ -1,11 +1,11 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiDataModel } from '../models/ApiData.model';
-import { Observable } from 'rxjs';
-import { CharacterModel } from '../models/character.model';
-import { LocationModel } from '../models/location.model';
-import { EpisodeModel } from '../models/episode.model';
-import { API_URL } from '../constants/urls';
+import { CharacterModel } from 'src/app/models/character.model';
+import { LocationModel } from 'src/app/models/location.model';
+import { ApiDataModel } from 'src/app/models/ApiData.model';
+import { EpisodeModel } from 'src/app/models/episode.model';
+import { API_URL } from 'src/app/constants/urls';
 type APIdataArray = CharacterModel[]|LocationModel[]|EpisodeModel[];
 type APIdata = CharacterModel|LocationModel|EpisodeModel;
 

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 import { CharacterModel } from 'src/app/models/character.model';
-import { FAV_CHARACTERS } from '../../constants/localStorage';
-import { CHARACTER_API } from '../../constants/queries';
+import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
+import { CHARACTER_API } from 'src/app/constants/queries';
 import { WAIT_LOAD } from 'src/app/constants/values';
 import { CHARACTERS } from 'src/app/constants/paths';
 
@@ -59,16 +59,16 @@ export class FavCharactersListComponent implements OnInit {
     }
   }
   getCharactersFromAPI(): void {
-    const favCharactersIds: string = localStorage.getItem(FAV_CHARACTERS) as string;
+    const favCharactersIds: string = sessionStorage.getItem(FAV_CHARACTERS) as string;
     this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, favCharactersIds).subscribe(
       characters => this.onCallAPIEnd(characters as CharacterModel[]),
       error => this.setLoading(false));
   }
   deleteFavorite(confirm: boolean): void {
     if (confirm) {
-      const favoritesIds: string[] = (localStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
+      const favoritesIds: string[] = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
       favoritesIds.splice(favoritesIds.indexOf(this.getFavoriteIdToDelete()), 1);
-      localStorage.setItem(FAV_CHARACTERS, favoritesIds.join(','));
+      sessionStorage.setItem(FAV_CHARACTERS, favoritesIds.join(','));
       favoritesIds.length ? this.getCharactersFromAPI() : this.router.navigateByUrl(CHARACTERS);
     }
   }

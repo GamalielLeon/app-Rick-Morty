@@ -1,7 +1,7 @@
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 import { CharactersListComponent } from './characters-list.component';
 import { ApiDataModel } from 'src/app/models/ApiData.model';
-import { PAGE_SIZE } from 'src/app/constants/localStorage';
+import { PAGE_SIZE } from 'src/app/constants/sesionStorage';
 import { PAGE } from 'src/app/constants/queries';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
