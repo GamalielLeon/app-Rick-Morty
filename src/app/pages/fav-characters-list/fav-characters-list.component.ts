@@ -22,7 +22,7 @@ export class FavCharactersListComponent implements OnInit {
   ngOnInit(): void { this.getCharactersFromAPI(); }
 
   /********** METHODS **********/
-  private onCallAPIEnd(characters: CharacterModel[]): void {
+  onCallAPIEnd(characters: CharacterModel[]): void { // Private
     this.setFavoriteCharacters(characters.length ? characters : [characters as unknown as CharacterModel]);
     this.setLoading(false);
   }

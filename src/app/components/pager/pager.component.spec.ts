@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PagerComponent } from './pager.component';
 
-describe('PagerComponent', () => {
+xdescribe('PagerComponent', () => {
   let component: PagerComponent;
   let fixture: ComponentFixture<PagerComponent>;
 
