@@ -28,7 +28,7 @@ describe('FavCharactersListComponent Tests', () => {
   for (const favoriteIds of fakeFavoriteIds) {
     it('Check if the number of favorite characters is equal to ' + favoriteIds.split(',').length.toString(),
       waitForAsync( () => {
-        localStorage.setItem(FAV_CHARACTERS, favoriteIds);
+        sessionStorage.setItem(FAV_CHARACTERS, favoriteIds);
         serviceRickMorty.getItemsFromAPIByIds(CHARACTER_API, favoriteIds).subscribe(
           characters => checkFavoritesLength(characters as CharacterModel[], favoriteIds),
           error => fail(error)

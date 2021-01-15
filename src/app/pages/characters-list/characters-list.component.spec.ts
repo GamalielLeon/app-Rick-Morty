@@ -21,7 +21,7 @@ describe('CharactersListComponent Tests', () => {
     it('Check if the length of the characters per page is equal to ' + pageSize, () => {
       spyOn(rickMortyService, 'getItemsFromAPI').and.callFake(data => of(fakeData));
       spyOn(rickMortyService, 'getItemsFromAPIByIds').and.callFake(characters => of(fakeCharacters));
-      localStorage.setItem(PAGE_SIZE, pageSize);
+      sessionStorage.setItem(PAGE_SIZE, pageSize);
       component.ngOnInit();
       expect(component.getCharactersPerPage().length).toBe(+pageSize);
     });
