@@ -3,7 +3,7 @@
 
     <div *ngIf="!getLoading()" class="row mx-0 mb-3">
         <div class="col">
-            <button id="favButton" type="button" class="btn btn-primary fw-bold fs-5" (click)="goBack()">
+            <button type="button" class="btn btn-primary fw-bold fs-5" (click)="goBack()">
                 <span class="fas fa-hand-point-left fa-lg"></span> &nbsp;REGRESAR
             </button>
         </div>
@@ -64,5 +64,5 @@
         </div>
     </div>
 
-    <app-pop-up-episode [displayInfo]="true" [staticModal]="false" [data]="getEpisodeSelected()"></app-pop-up-episode>
+    <app-pop-up-episode *ngIf="!getLoading()" [displayInfo]="true" [staticModal]="false" [data]="getEpisodeSelected()"></app-pop-up-episode>
 </section>

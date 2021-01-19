@@ -1,42 +1,43 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CharacterDetailComponent } from './character-detail.component';
-import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
 import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { FAV_CHARACTERS } from '../../constants/sesionStorage';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
+import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
+import { PopUpEpisodeComponent } from 'src/app/components/pop-up-episode/pop-up-episode.component';
+import { LoaderComponent } from 'src/app/components/loader/loader.component';
+import { CharacterDetailComponent } from './character-detail.component';
 
-xdescribe('CharacterDetailComponent Test', () => {
-  let serviceActiveRoute: ActivatedRoute;
+describe('CharacterDetailComponent Test', () => {
   let component: CharacterDetailComponent;
   let fixture: ComponentFixture<CharacterDetailComponent>;
+  const characterIds: string[] = ['2', '14', '389'];
 
+  // It is neccessary to add all the components involved into the 'declarations' array.
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterDetailComponent ],
-      providers: [ RickMortyApiServiceService ],
-      imports: [ HttpClientModule, RouterTestingModule ]
+      declarations: [ CharacterDetailComponent, LoaderComponent, PopUpEpisodeComponent ],
+      imports: [ HttpClientModule, RouterTestingModule ],
+      providers: [ RickMortyApiServiceService ]
     });
-    fixture = TestBed.createComponent(CharacterDetailComponent);
-    serviceActiveRoute: TestBed.inject(ActivatedRoute);
-    // serviceActiveRoute = new ActivatedRoute();
-    component = fixture.componentInstance;
   });
 
-  it('Verify that when clicking the favorite button, the character id stores inside' +
-    ' the "favCharacters" string in the sessionStorage', () => {
-    const characterId: string = '2';
-    // spyOnProperty(serviceActiveRoute, 'params', 'get').and.returnValue(+characterId); (By.css('.btn'))
-    // const favButton = fixture.debugElement.nativeElement.querySelector('#favButton');
-    setTimeout(() => {
-      const favButton = fixture.debugElement.query( By.css('#favButton') );
-      console.log(favButton);
-      favButton.triggerEventHandler('click', null);
-      let favCharacters: string[];
-      favCharacters = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',');
-      expect(favCharacters.includes(characterId)).toBeTruthy();
-    }, 1000);
-  });
+  for (const characterId of characterIds) {
+    it(`When clicking the favorite button, the character.id = ${characterId} stores inside ` +
+    'the sessionStorage', (done) => {
+      // It is possible to override the provider as long as the component has not been created.
+      TestBed.overrideProvider(ActivatedRoute, { useValue: { params: of({id : +characterId}) } });
+      fixture = TestBed.createComponent(CharacterDetailComponent);
+      setTimeout(() => {
+        fixture.detectChanges();  // Used to detect changes on the HTML and update it.
+        fixture.debugElement.query(By.css('#addFavoriteBtn')).triggerEventHandler('click', null);
+        // fixture.nativeElement.querySelector('#addFavoriteBtn').click();
+        const favCharacters = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',');
+        expect(favCharacters.includes(characterId)).toBeTruthy();
+        done();
+      }, 1000);
+    });
+  }
 });

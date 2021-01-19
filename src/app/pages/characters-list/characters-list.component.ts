@@ -28,7 +28,7 @@ export class CharactersListComponent implements OnInit {
     this.setCharactersPerPage(page, pageSize);
     this.setLoading(false);
   }
-  private async getCharactersFromAPI(): Promise<void> {
+  async getCharactersFromAPI(): Promise<void> { // Private
     const apiData: ApiDataModel = await this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=1`]);
     const records: string = [...Array(apiData.info.count + 1).keys()].slice(1).join(',');
     this.characters = await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, records) as CharacterModel[];

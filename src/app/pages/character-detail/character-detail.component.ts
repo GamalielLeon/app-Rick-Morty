@@ -23,10 +23,11 @@ export class CharacterDetailComponent implements OnInit {
                       unknown: 'fas fa-question fa-lg' };
 
   constructor(private rickMortyService: RickMortyApiServiceService, private router: Router,
-              private activeRoute: ActivatedRoute) { }
-  ngOnInit(): void { this.activeRoute.params.subscribe(params => this.getCharacterById(params.id)); }
+              private activeRoute: ActivatedRoute)
+              { this.activeRoute.params.subscribe(params => this.getCharacterById(params.id)); }
+  ngOnInit(): void { }
   /********** METHODS **********/
-  private async getCharacterById(id: number): Promise<void> {
+  async getCharacterById(id: number): Promise<void> { // Private
     this.characterData = await this.rickMortyService.getItemFromAPI(CHARACTER_API, id);
     this.setLoading(false);
   }
