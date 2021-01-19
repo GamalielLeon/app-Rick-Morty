@@ -16,13 +16,13 @@ export class RickMortyApiServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getItemsFromAPI(query: string, filters: string[] = []): Observable<ApiDataModel> {
-    return this.http.get<ApiDataModel>(`${API_URL + query}?${filters.join('&')}`);
+  getItemsFromAPI(query: string, filters: string[] = []): Promise<ApiDataModel> {
+    return this.http.get<ApiDataModel>(`${API_URL + query}?${filters.join('&')}`).toPromise();
   }
-  getItemsFromAPIByIds(query: string, ids: string): Observable<APIdataArray|APIdata> {
-      return this.http.get<APIdataArray|APIdata>(`${API_URL + query}/${ids}`);
+  getItemsFromAPIByIds(query: string, ids: string): Promise<APIdataArray|APIdata> {
+      return this.http.get<APIdataArray|APIdata>(`${API_URL + query}/${ids}`).toPromise();
   }
-  getItemFromAPI(query: string, id: number): Observable<APIdata> {
-    return this.http.get<APIdata>(`${API_URL + query}/${id}`);
+  getItemFromAPI(query: string, id: number): Promise<APIdata> {
+    return this.http.get<APIdata>(`${API_URL + query}/${id}`).toPromise();
   }
 }

@@ -22,10 +22,6 @@ export class FavCharactersListComponent implements OnInit {
   ngOnInit(): void { this.getCharactersFromAPI(); }
 
   /********** METHODS **********/
-  onCallAPIEnd(characters: CharacterModel[]): void { // Private
-    this.setFavoriteCharacters(characters.length ? characters : [characters as unknown as CharacterModel]);
-    this.setLoading(false);
-  }
   private getTableHeaders(indexTh: number): any {
     const ths = document.getElementsByTagName('th');
     for (let i = ths.length - 1; i >= 0; i--) { ths[i].removeAttribute('class'); }
@@ -40,8 +36,7 @@ export class FavCharactersListComponent implements OnInit {
   private sortTwoPropsByColumn(prop1: string, prop2: string, sortDirection: number): void {
     this.favoriteCharacters.sort( (a: any, b: any) =>
       ( a[prop1][prop2].toString().toLowerCase().charCodeAt(0)
-        - b[prop1][prop2].toString().toLowerCase().charCodeAt(0) ) * sortDirection
-    );
+        - b[prop1][prop2].toString().toLowerCase().charCodeAt(0) ) * sortDirection );
   }
   private sortByColumn(propsToSort: string[], sortDirection: number): void {
     propsToSort.length === 1 ? this.sortOnePropByColumn(propsToSort[0], sortDirection) :
@@ -58,16 +53,16 @@ export class FavCharactersListComponent implements OnInit {
       this.sortByColumn(prop, -1);
     }
   }
-  getCharactersFromAPI(): void {
-    const favCharactersIds: string = sessionStorage.getItem(FAV_CHARACTERS) as string;
-    this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, favCharactersIds).subscribe(
-      characters => this.onCallAPIEnd(characters as CharacterModel[]),
-      error => this.setLoading(false));
+  async getCharactersFromAPI(): Promise<void> {
+    const favCharactersIds = sessionStorage.getItem(FAV_CHARACTERS) as string;
+    const characters = await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, favCharactersIds) as CharacterModel[];
+    this.setFavoriteCharacters(characters.length ? characters : [characters as unknown as CharacterModel]);
+    this.setLoading(false);
   }
   deleteFavorite(confirm: boolean): void {
     if (confirm) {
       const favoritesIds: string[] = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',').filter(Boolean);
-      favoritesIds.splice(favoritesIds.indexOf(this.getFavoriteIdToDelete()), 1);
+      favoritesIds.splice(favoritesIds.indexOf(this.favoriteIdToDelete.toString()), 1);
       sessionStorage.setItem(FAV_CHARACTERS, favoritesIds.join(','));
       favoritesIds.length ? this.getCharactersFromAPI() : this.router.navigateByUrl(CHARACTERS);
     }
@@ -76,7 +71,6 @@ export class FavCharactersListComponent implements OnInit {
   /********** GETTERS **********/
   getLoading = (): boolean => this.loading;
   getFavoriteCharacters = (): CharacterModel[] => this.favoriteCharacters;
-  getFavoriteIdToDelete = (): string => this.favoriteIdToDelete.toString();
   /********** SETTERS **********/
   setFavoriteIdToDelete(characterId: number): void { this.favoriteIdToDelete = characterId; }
   setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }

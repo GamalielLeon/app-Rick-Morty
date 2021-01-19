@@ -23,24 +23,16 @@ export class CharacterDetailComponent implements OnInit {
                       unknown: 'fas fa-question fa-lg' };
 
   constructor(private rickMortyService: RickMortyApiServiceService, private router: Router,
-              private activeRoute: ActivatedRoute) {
-    this.activeRoute.params.subscribe(params => this.getCharacterById(params.id));
-  }
-  ngOnInit(): void { }
+              private activeRoute: ActivatedRoute) { }
+  ngOnInit(): void { this.activeRoute.params.subscribe(params => this.getCharacterById(params.id)); }
   /********** METHODS **********/
-  private onCharacterReceived(character: CharacterModel): void {
-    this.setCharacterData(character);
+  private async getCharacterById(id: number): Promise<void> {
+    this.characterData = await this.rickMortyService.getItemFromAPI(CHARACTER_API, id);
     this.setLoading(false);
   }
-  private getCharacterById(id: number): void {
-    this.rickMortyService.getItemFromAPI(CHARACTER_API, id).subscribe(
-      character => this.onCharacterReceived(character as CharacterModel),
-      error => this.setLoading(false) );
-  }
-  clickEpisode(episodeUrl: string): void {
+  async clickEpisode(episodeUrl: string): Promise<void> {
     const episodeId: string = episodeUrl.split('/').slice(-1)[0];
-    this.rickMortyService.getItemFromAPI(EPISODE_API, +episodeId).
-      subscribe( episode => this.setEpisodeSelected(episode as EpisodeModel) );
+    this.episodeSelected = await this.rickMortyService.getItemFromAPI(EPISODE_API, +episodeId);
   }
   addFavorite(): void{
     this.favorites.push(this.characterData.id.toString());
@@ -54,6 +46,4 @@ export class CharacterDetailComponent implements OnInit {
   getLoading = (): boolean => this.loading;
   /********** SETTERS **********/
   setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }
-  setCharacterData(character: CharacterModel): void { this.characterData = character; }
-  setEpisodeSelected(episode: EpisodeModel): void { this.episodeSelected = episode; }
 }

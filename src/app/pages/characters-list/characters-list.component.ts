@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { CHARACTER } from 'src/app/constants/paths';
+import { ApiDataModel } from 'src/app/models/ApiData.model';
 import { CharacterModel } from 'src/app/models/character.model';
 import { CHARACTER_API, PAGE } from 'src/app/constants/queries';
 import { CURRENT_PAGE, PAGE_SIZE } from 'src/app/constants/sesionStorage';
@@ -14,36 +14,26 @@ import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-serv
   styleUrls: ['./characters-list.component.css']
 })
 export class CharactersListComponent implements OnInit {
-  private subscriptions: Subscription = new Subscription();
   private charactersPerPage: CharacterModel[] = [];
   private characters: CharacterModel[] = [];
   private totalRecords: number = 1;
   private loading: boolean = true;
 
   constructor(private rickMortyService: RickMortyApiServiceService, private router: Router) { }
-  ngOnInit(): void { this.getCharactersFromAPI(); }
+  ngOnInit(): void { this.getCharactersFromAPI().catch(error => this.setLoading(false)); }
   /********** METHODS **********/
-  private onCallAPIEnd(characters: CharacterModel[], totalRecords: number): void {
-    this.characters = [...characters];
+  private onCallAPIEnd(): void {
     const pageSize: number = +(sessionStorage.getItem(PAGE_SIZE) || DEFAULT_PAGE_SIZE);
     const page: number = +(sessionStorage.getItem(CURRENT_PAGE) || DEFAULT_PAGE);
     this.setCharactersPerPage(page, pageSize);
-    this.setTotalRecords(totalRecords);
-    this.subscriptions.unsubscribe();
     this.setLoading(false);
   }
-  private getCharactersFromAllPages(totalRecords: number): void {
-    const records = [...Array(totalRecords + 1).keys()].slice(1).join(',');
-    const subscription = this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, records).subscribe(
-      characters => this.onCallAPIEnd(characters as CharacterModel[], totalRecords),
-      error => this.setLoading(false) );
-    this.subscriptions.add(subscription);
-  }
-  private getCharactersFromAPI(): void {
-    const subscription = this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=1`]).
-      subscribe(data => this.getCharactersFromAllPages(data.info.count),
-                error => this.setLoading(false));
-    this.subscriptions.add(subscription);
+  private async getCharactersFromAPI(): Promise<void> {
+    const apiData: ApiDataModel = await this.rickMortyService.getItemsFromAPI(CHARACTER_API, [`${PAGE}=1`]);
+    const records: string = [...Array(apiData.info.count + 1).keys()].slice(1).join(',');
+    this.characters = await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, records) as CharacterModel[];
+    this.totalRecords = apiData.info.count;
+    this.onCallAPIEnd();
   }
   onChangePage(pageInfo: number[]): void { this.setCharactersPerPage(pageInfo[0], pageInfo[1]); }
   onSelectCard(index: number): void { this.router.navigateByUrl(`${CHARACTER}/${index}`); }
@@ -53,7 +43,6 @@ export class CharactersListComponent implements OnInit {
   getCharactersPerPage = (): CharacterModel[] => this.charactersPerPage;
   /********** SETTERS **********/
   setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }
-  setTotalRecords(totalRecords: number): void { this.totalRecords = totalRecords; }
   setCharactersPerPage(page: number, pageSize: number): void {
     this.charactersPerPage = this.characters.slice(pageSize * (page - 1), page * pageSize );
   }

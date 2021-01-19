@@ -7,9 +7,8 @@ import { CharacterModel } from '../../models/character.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Input() characterData: CharacterModel | any;
+  @Input() characterData: CharacterModel | any = {};
 
   constructor() { }
   ngOnInit(): void { }
-
 }
