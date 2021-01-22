@@ -13,6 +13,7 @@ export class FavoritesGuard implements CanActivate {
 
   private onFailedCallAPI(): boolean {
     sessionStorage.removeItem(FAV_CHARACTERS);
+    alert('¡No tiene favoritos agregados!');
     this.router.navigateByUrl(CHARACTERS);
     return false;
   }

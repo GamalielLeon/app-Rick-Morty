@@ -37,7 +37,7 @@ describe('CharacterDetailComponent Test', () => {
         const favCharacters = (sessionStorage.getItem(FAV_CHARACTERS) || '').split(',');
         expect(favCharacters.includes(characterId)).toBeTruthy();
         done();
-      }, 1000);
+      }, 2000);
     });
   }
 });
