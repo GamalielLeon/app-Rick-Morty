@@ -8,17 +8,18 @@ import { CharacterDetailComponent } from './pages/character-detail/character-det
 import { CharactersListComponent } from './pages/characters-list/characters-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FavoritesGuard } from './guards/favorites-guard.guard';
+import { CharactersRoutingModule } from './pages/characters-routing.module';
 
 const routes: Routes = [
   {path: HOME, component: HomeComponent},
-  {path: CHARACTERS, component: CharactersListComponent},
+  // {path: CHARACTERS, component: CharactersListComponent},
   {path: FAVORITES, component: FavCharactersListComponent, canActivate: [FavoritesGuard]},
   {path: `${CHARACTER}/:id`, component: CharacterDetailComponent},
   {path: OTHER, pathMatch: 'full', redirectTo: HOME}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CharactersRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -4,7 +4,6 @@ import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-serv
 import { CharacterModel } from 'src/app/models/character.model';
 import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
 import { CHARACTER_API } from 'src/app/constants/queries';
-import { WAIT_LOAD } from 'src/app/constants/values';
 import { CHARACTERS } from 'src/app/constants/paths';
 
 @Component({
@@ -73,6 +72,6 @@ export class FavCharactersListComponent implements OnInit {
   getFavoriteCharacters = (): CharacterModel[] => this.favoriteCharacters;
   /********** SETTERS **********/
   setFavoriteIdToDelete(characterId: number): void { this.favoriteIdToDelete = characterId; }
-  setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }
+  setLoading(loading: boolean): void { this.loading = loading; }
   setFavoriteCharacters(characters: CharacterModel[]): void { this.favoriteCharacters = characters; }
 }

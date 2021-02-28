@@ -1,6 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { WAIT_LOAD } from 'src/app/constants/values';
 import { CHARACTERS } from 'src/app/constants/paths';
 import { EpisodeModel } from 'src/app/models/episode.model';
 import { CharacterModel } from '../../models/character.model';
@@ -46,5 +45,5 @@ export class CharacterDetailComponent implements OnInit {
   getCharacterData = (): CharacterModel => this.characterData;
   getLoading = (): boolean => this.loading;
   /********** SETTERS **********/
-  setLoading(loading: boolean): void { setTimeout(() => this.loading = loading, WAIT_LOAD); }
+  setLoading(loading: boolean): void { this.loading = loading; }
 }
