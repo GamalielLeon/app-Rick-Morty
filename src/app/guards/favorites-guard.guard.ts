@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { RickMortyApiServiceService } from 'src/app/services/rick-morty-api-service.service';
 import { FAV_CHARACTERS } from 'src/app/constants/sesionStorage';
@@ -8,8 +8,13 @@ import { CHARACTERS } from 'src/app/constants/paths';
 @Injectable({
   providedIn: 'root'
 })
-export class FavoritesGuard implements CanActivate {
+export class FavoritesGuard implements CanActivate, CanLoad {
   constructor(private rickMortyService: RickMortyApiServiceService, private router: Router) { }
+  async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
+    const favoritesIds: string = (sessionStorage.getItem(FAV_CHARACTERS) || '*').replace(/ |0/g, '*');
+    return await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, favoritesIds)
+                                      .then(data => true).catch(error => this.onFailedCallAPI());
+  }
 
   private onFailedCallAPI(): boolean {
     sessionStorage.removeItem(FAV_CHARACTERS);

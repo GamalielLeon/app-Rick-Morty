@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CHARACTER, CHARACTERS } from '../constants/paths';
-import { CharacterDetailComponent } from './character-detail/character-detail.component';
+import { CHARACTERS } from '../constants/paths';
 import { CharactersListComponent } from './characters-list/characters-list.component';
 
 /* For using the children routes, it is necessary to use the <router-outlet> element
@@ -11,9 +10,9 @@ const routes: Routes = [
   {
     path: CHARACTERS,
     component: CharactersListComponent,
-    children: [
+    /* children: [
       {path: `${CHARACTER}/:id`, component: CharacterDetailComponent},
-    ]
+    ] */
   }
 ];
 
