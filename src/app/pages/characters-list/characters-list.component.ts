@@ -28,7 +28,8 @@ export class CharactersListComponent implements OnInit {
     const idStart: number = pageSize * (page - 1);
     const idEnd: number = pageSize * page;
     const records: string = [...Array(this.totalRecords + 1).keys()].slice(1).slice(idStart, idEnd).join(',');
-    this.charactersPerPage = await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, records) as CharacterModel[];
+    const characters: any = await this.rickMortyService.getItemsFromAPIByIds(CHARACTER_API, records);
+    this.charactersPerPage = characters.length ? characters : [characters];
     this.setLoading(false);
   }
   onChangePage(pageInfo: number[]): void { this.getCharactersFromAPI(); }
